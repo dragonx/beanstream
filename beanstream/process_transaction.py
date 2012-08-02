@@ -131,7 +131,7 @@ class PreAuthorization(Purchase):
         self.params['trnType'] = self.TRN_TYPES['preauth']
 
 
-class Adjustment(transaction.Transaction):
+class Adjustment(Purchase):
 
     RETURN = 'R'
     VOID = 'V'
@@ -140,7 +140,7 @@ class Adjustment(transaction.Transaction):
     VOID_PURCHASE = 'VP'
 
     def __init__(self, beanstream_gateway, adjustment_type, transaction_id, amount):
-        super(PreAuthorizationCompletion, self).__init__(beanstream_gateway)
+        super(Adjustment, self).__init__(beanstream_gateway, amount)
 
         if not beanstream_gateway.HASH_VALIDATION and not beanstream_gateway.USERNAME_VALIDATION:
             raise errors.ConfigurationException('adjustments must be performed with either hash or username/password validation')

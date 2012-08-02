@@ -89,7 +89,7 @@ class Beanstream(object):
         """ Returns an Adjustment object configured for voiding the specified
         transaction for the specified amount.
         """
-        txn = process_transaction.Adjustment(self, process_transaction.Adjustment.VOID, transaction_id, amount)
+        txn = process_transaction.Adjustment(self, process_transaction.Adjustment.VOID_PURCHASE, transaction_id, amount)
         return txn
 
     def return_purchase(self, transaction_id, amount):
