@@ -70,6 +70,7 @@ credit cards given for sandbox use.
 Example config file:
 
     # these should match your beanstream account settings
+    [config]
     hash_validation: true
     require_billing_address: true
     require_cvd: true

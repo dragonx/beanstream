@@ -108,8 +108,7 @@ class BeanstreamTests(unittest.TestCase):
         txn.set_comments('%s:test_failed_cvd' % __name__)
         resp = txn.commit()
         assert not resp.approved()
-        assert resp.cvd_status() == 'CVD Mismatch'
-
+        assert resp.cvd_status() == 'CVD Not Verified'
 
     def test_over_limit_cc_purchase(self):
         today = date.today()
