@@ -50,7 +50,7 @@ class Transaction(object):
     }
 
 
-    def __init__(self, beanstream):
+    def __init__(self, beanstream, order_number=None):
         self.beanstream = beanstream
         self.response_class = Response
 
@@ -60,7 +60,10 @@ class Transaction(object):
             self.params['username'] = self.beanstream.username
             self.params['password'] = self.beanstream.password
 
-        self._generate_order_number()
+        if order_number:
+            self.order_number = order_number
+        else:
+            self._generate_order_number()
         self.params['trnOrderNumber'] = self.order_number
         self.response_params = []
 

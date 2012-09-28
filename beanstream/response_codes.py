@@ -782,6 +782,7 @@ response_codes = {
   '787': {'type': 'TD Bank', 'approved': False, 'cardholder_message': 'Declined', 'merchant_message': 'Declined'},
   '788': {'type': 'Beanstream', 'approved': False, 'cardholder_message': 'Duplicate Order Number - This order number has already been processed', 'merchant_message': 'Duplicate Order Number - This order number has already been processed'},
   '789': {'type': 'Beanstream', 'approved': False, 'cardholder_message': 'Card Number Mismatch', 'merchant_message': 'Card Number Mismatch'},
+  '804': {'type': 'Beanstream', 'approved': False, 'cardholder_message': 'Entered information cannot be authenticated', 'merchant_message': 'Entered information cannot be authenticated'},
 }
 
 

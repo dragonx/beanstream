@@ -75,10 +75,10 @@ class Beanstream(object):
         if self.HASH_VALIDATION and self.hash_algorithm not in ('MD5', 'SHA1'):
             raise errors.ConfigurationException('hash algorithm must be one of MD5 or SHA1')
 
-    def purchase(self, amount, card, billing_address=None):
+    def purchase(self, amount, card, billing_address=None, order_number=None):
         """ Returns a Purchase object with the specified options.
         """
-        txn = process_transaction.Purchase(self, amount)
+        txn = process_transaction.Purchase(self, amount, order_number)
         txn.set_card(card)
         if billing_address:
             txn.set_billing_address(billing_address)
@@ -92,11 +92,11 @@ class Beanstream(object):
         txn = process_transaction.Adjustment(self, process_transaction.Adjustment.VOID_PURCHASE, transaction_id, amount)
         return txn
 
-    def return_purchase(self, transaction_id, amount):
+    def return_purchase(self, transaction_id, amount, order_number=None):
         """ Returns an Adjustment object configured for returning the specified
         transaction for the specified amount.
         """
-        txn = process_transaction.Adjustment(self, process_transaction.Adjustment.RETURN, transaction_id, amount)
+        txn = process_transaction.Adjustment(self, process_transaction.Adjustment.RETURN, transaction_id, amount, order_number)
         return txn
 
     def void_return(self, transaction_id, amount):
@@ -106,21 +106,21 @@ class Beanstream(object):
         txn = process_transaction.Adjustment(self, process_transaction.Adjustment.VOID_RETURN, transaction_id, amount)
         return txn
 
-    def preauth(self, amount, card, billing_address=None):
+    def preauth(self, amount, card, billing_address=None, order_number=None):
         """ Returns a PreAuthorization object with the specified options.
         """
-        txn = process_transaction.PreAuthorization(self, amount)
+        txn = process_transaction.PreAuthorization(self, amount, order_number)
         txn.set_card(card)
         if billing_address:
             txn.set_billing_address(billing_address)
 
         return txn
 
-    def preauth_completion(self, transaction_id, amount):
+    def preauth_completion(self, transaction_id, amount, order_number=None):
         """ Returns an Adjustment object configured for completing the
         preauthorized transaction for the specified amount.
         """
-        txn = process_transaction.Adjustment(self, process_transaction.Adjustment.PREAUTH_COMPLETION, transaction_id, amount)
+        txn = process_transaction.Adjustment(self, process_transaction.Adjustment.PREAUTH_COMPLETION, transaction_id, amount, order_number)
         return txn
 
     def cancel_preauth(self, transaction_id):

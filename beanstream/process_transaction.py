@@ -24,8 +24,8 @@ log = logging.getLogger('beanstream.process_transaction')
 
 class Purchase(transaction.Transaction):
 
-    def __init__(self, beanstream_gateway, amount):
-        super(Purchase, self).__init__(beanstream_gateway)
+    def __init__(self, beanstream_gateway, amount, order_number=None):
+        super(Purchase, self).__init__(beanstream_gateway, order_number)
         self.url = self.URLS['process_transaction']
         self.response_class = PurchaseResponse
 
@@ -125,8 +125,8 @@ class PurchaseResponse(transaction.Response):
 
 class PreAuthorization(Purchase):
 
-    def __init__(self, beanstream_gateway, amount):
-        super(PreAuthorization, self).__init__(beanstream_gateway, amount)
+    def __init__(self, beanstream_gateway, amount, order_number=None):
+        super(PreAuthorization, self).__init__(beanstream_gateway, amount, order_number)
 
         self.params['trnType'] = self.TRN_TYPES['preauth']
 
@@ -139,8 +139,8 @@ class Adjustment(Purchase):
     VOID_RETURN = 'VR'
     VOID_PURCHASE = 'VP'
 
-    def __init__(self, beanstream_gateway, adjustment_type, transaction_id, amount):
-        super(Adjustment, self).__init__(beanstream_gateway, amount)
+    def __init__(self, beanstream_gateway, adjustment_type, transaction_id, amount, order_number=None):
+        super(Adjustment, self).__init__(beanstream_gateway, amount, order_number)
 
         if not beanstream_gateway.HASH_VALIDATION and not beanstream_gateway.USERNAME_VALIDATION:
             raise errors.ConfigurationException('adjustments must be performed with either hash or username/password validation')
