@@ -151,10 +151,10 @@ class Beanstream(object):
         txn = payment_profiles.GetPaymentProfile(self, customer_code)
         return txn
 
-    def purchase_with_payment_profile(self, amount, customer_code):
+    def purchase_with_payment_profile(self, amount, customer_code, order_number=None):
         """ Returns a Purchase object with the specified options.
         """
-        txn = process_transaction.Purchase(self, amount)
+        txn = process_transaction.Purchase(self, amount, order_number)
         txn.set_customer_code(customer_code)
         return txn
 
