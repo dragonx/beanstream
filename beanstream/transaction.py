@@ -93,7 +93,7 @@ class Transaction(object):
 
         log.debug('Sending to %s: %s', self.url, data)
 
-        res = urllib2.urlopen(self.url, data)
+        res = urllib2.urlopen(self.url, data, 10)
 
         if res.code != 200:
             log.error('response code not OK: %s', res.code)
